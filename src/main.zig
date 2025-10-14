@@ -1,6 +1,6 @@
 const std = @import("std");
-const ui = @import("windows");
-const utl = @import("utils");
+const ui = @import("windows.zig");
+const utl = @import("utils.zig");
 //const builtin = @import("builtin");
 //Descomentar al implementar la version para linux
 //const wn = if (builtin.os.tag == .windows)

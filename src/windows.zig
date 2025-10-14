@@ -1,5 +1,5 @@
 const std = @import("std");
-const utl = @import("utils");
+const utl = @import("utils.zig");
 
 const wn = @cImport({
     @cInclude("windows.h");

@@ -10,30 +10,12 @@ pub fn build(b: *std.Build) void {
     //On release
     const optimize = std.builtin.OptimizeMode.ReleaseSmall;
 
-    const utl_mod = b.addModule("utils", .{
-        .root_source_file = b.path("src/utils.zig"),
-        .target = target
-    });
-
-    const wn_mod = b.addModule("windows", .{
-        .root_source_file = b.path("src/windows.zig"),
-        .target = target,
-        .imports = &.{
-            .{ .name = "utils", .module = utl_mod}
-        }
-
-    });
-
     const exe = b.addExecutable(.{
         .name = "KeyEmulator",
         .root_module = b.createModule(.{
             .root_source_file = b.path("src/main.zig"),
             .target = target,
             .optimize = optimize,
-            .imports = &.{
-                .{ .name = "windows", .module = wn_mod },
-                .{ .name = "utils", .module = utl_mod },
-            },
         }),
     });
 
