@@ -1,5 +1,5 @@
 const std = @import("std");
-const ui = @import("windows.zig");
+const ui = @import("system-ui/windows.zig");
 const utl = @import("utils.zig");
 //const builtin = @import("builtin");
 //Descomentar al implementar la version para linux
@@ -8,13 +8,10 @@ const utl = @import("utils.zig");
 //           else
 //              @import("linux");
 
-
 const print = std.debug.print;
-const err = error {
+const err = error{
     InvalidArgs,
 };
-
-
 
 fn errorArgs() void {
     print("Error: Bad arguments\n\n", .{});
@@ -25,9 +22,8 @@ fn errorArgs() void {
     print("KeyEmulator t(key to press) 60(seconds) 25(Milliseconds)\n\n", .{});
 }
 
-
 //Cambiar a args: []const [:0]u8 cuando no use el run del build
-fn obtain_valid_args(args: [][:0] u8) err!struct{[]const u8, u32, u32} {
+fn obtain_valid_args(args: [][:0]u8) err!struct { []const u8, u32, u32 } {
     if (args.len != 4) return err.InvalidArgs;
     if (args[1].len != 1) return err.InvalidArgs;
 
@@ -35,11 +31,10 @@ fn obtain_valid_args(args: [][:0] u8) err!struct{[]const u8, u32, u32} {
     const seconds: u32 = std.fmt.parseInt(u32, args[2], 0) catch return err.InvalidArgs;
     const delay: u32 = std.fmt.parseInt(u32, args[3], 0) catch return err.InvalidArgs;
 
-    return .{key, seconds, delay};
+    return .{ key, seconds, delay };
 }
 
 pub fn main() !void {
-
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
 
@@ -67,11 +62,9 @@ pub fn main() !void {
         count -= 1;
     }
 
-
     print("Loop start...\n", .{});
     ui.simulate_keypress(key, seconds, delay);
 
     //To DO: Crear funcion para ejecutar el bucle
-
 
 }
