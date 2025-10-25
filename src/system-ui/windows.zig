@@ -5,10 +5,10 @@ const wn = @cImport({
     @cInclude("Windows.h");
 });
 
-pub fn simulate_keypress(key: []const u8, seconds: u32, delay: u32) void {
+pub fn simulate_keypress(key: u8, seconds: u32, delay: u32) void {
 
     //Obtain the ascii value and cast to vk
-    const local_key_raw = std.ascii.toUpper(key[0]);
+    const local_key_raw = std.ascii.toUpper(key);
     const vk_result = wn.VkKeyScanExA(local_key_raw, wn.GetKeyboardLayout(0));
 
     if (vk_result == -1) {

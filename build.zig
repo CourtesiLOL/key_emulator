@@ -1,5 +1,5 @@
 const std = @import("std");
-
+const builtin = @import("builtin");
 
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
@@ -21,8 +21,11 @@ pub fn build(b: *std.Build) void {
 
     b.installArtifact(exe);
 
-    //System libs
-    exe.linkSystemLibrary("c");
+    //System C lib
+    exe.linkLibC();
+
+    if (builtin.os.tag == .linux)
+        exe.linkSystemLibrary("X11");
 
     const run_step = b.step("run", "Run the app");
 
